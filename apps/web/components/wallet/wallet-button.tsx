@@ -164,9 +164,11 @@ export function WalletButton({ onAuthSuccess }: WalletButtonProps) {
         <Button
           onClick={() => setShowConnectDialog(true)}
           className="gap-2"
+          size="sm"
         >
           <WalletIcon className="size-4" />
-          Connect Wallet
+          <span className="hidden sm:inline">Connect Wallet</span>
+          <span className="sm:hidden">Connect</span>
         </Button>
 
         <Dialog open={showConnectDialog} onOpenChange={setShowConnectDialog}>
@@ -204,24 +206,27 @@ export function WalletButton({ onAuthSuccess }: WalletButtonProps) {
   // Connected but not authenticated
   if (!isAuthenticated) {
     return (
-      <div className="flex items-center gap-2">
-        <Badge variant="outline" className="gap-2">
+      <div className="flex items-center gap-1.5">
+        <Badge variant="outline" className="gap-1.5 hidden md:flex">
           <div className="size-2 rounded-full bg-orange-500 animate-pulse" />
-          Not Signed In
+          <span className="text-xs">Not Signed In</span>
         </Badge>
         <Button
           onClick={handleAuthenticate}
           disabled={isAuthenticating}
           className="gap-2"
+          size="sm"
         >
-          {isAuthenticating && <Spinner />}
-          Sign Message
+          {isAuthenticating && <Spinner className="size-4" />}
+          <span className="hidden sm:inline">Sign Message</span>
+          <span className="sm:hidden">Sign In</span>
         </Button>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => disconnect()}
           title="Disconnect"
+          className="size-8"
         >
           <LogOutIcon className="size-4" />
         </Button>
@@ -233,14 +238,14 @@ export function WalletButton({ onAuthSuccess }: WalletButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="gap-2">
+        <Button variant="outline" className="gap-1.5 sm:gap-2" size="sm">
           <Avatar className="size-5">
             <AvatarFallback className="text-xs">
               {address?.slice(2, 4).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <span className="hidden sm:inline">{shortenAddress(address!)}</span>
-          <Badge variant="default" className="gap-1 hidden md:flex">
+          <span className="font-mono text-xs sm:text-sm">{shortenAddress(address!)}</span>
+          <Badge variant="default" className="gap-1 hidden lg:flex">
             <CheckCircle2Icon className="size-3" />
             <span className="text-xs">Signed In</span>
           </Badge>

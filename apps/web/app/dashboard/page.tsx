@@ -1,25 +1,37 @@
 /**
- * Dashboard Page - Main authenticated dashboard
+ * Dashboard Page - Main authenticated dashboard with portfolio data
  */
 
 "use client";
 
 import { Header } from "@/components/layout/header";
 import { NetworkSwitcher } from "@/components/wallet/network-switcher";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Skeleton } from "@/components/ui/skeleton";
-import { InfoIcon, WalletIcon, TrendingUpIcon, PieChartIcon, BrainCircuitIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { InfoIcon, RefreshCwIcon } from "lucide-react";
 import { useWallet } from "@/hooks/use-wallet";
+import { usePortfolio } from "@/hooks/use-portfolio";
+import { useInsights } from "@/hooks/use-insights";
+import {
+  PortfolioSummaryCard,
+  AssetAllocationChart,
+  PositionsTable,
+  RiskMetricsCard,
+  AIInsightsCard,
+} from "@/components/dashboard";
+import { useState } from "react";
 
 export default function DashboardPage() {
-  const { isConnected, isAuthenticated, isCorrectChain } = useWallet();
+  const { address, isConnected, isAuthenticated, isCorrectChain } = useWallet();
+  const { portfolio, isLoading, refreshPortfolio } = usePortfolio();
+  const { insights, isLoading: isLoadingInsights, generateInsights } = useInsights();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  async function handleRefresh() {
+    setIsRefreshing(true);
+    await refreshPortfolio();
+    setTimeout(() => setIsRefreshing(false), 500);
+  }
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -27,11 +39,28 @@ export default function DashboardPage() {
       
       <main className="flex-1 py-8">
         <div className="container">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground">
-              Welcome to your Avalanche DeFi portfolio dashboard
-            </p>
+          {/* Header with Refresh */}
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+              <p className="text-muted-foreground">
+                Track your Avalanche DeFi portfolio
+              </p>
+            </div>
+            {isAuthenticated && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="gap-2"
+              >
+                <RefreshCwIcon
+                  className={`size-4 ${isRefreshing ? "animate-spin" : ""}`}
+                />
+                Refresh
+              </Button>
+            )}
           </div>
 
           {/* Network Switcher Alert */}
@@ -60,107 +89,53 @@ export default function DashboardPage() {
             </Alert>
           )}
 
-          {/* Dashboard Grid */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <WalletIcon className="size-5" />
-                  Portfolio Overview
-                </CardTitle>
-                <CardDescription>
-                  View your total portfolio value and performance
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isAuthenticated ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-8 w-32" />
-                    <Skeleton className="h-4 w-24" />
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Connect your wallet to see your portfolio
-                  </p>
-                )}
-              </CardContent>
-            </Card>
+          {/* Dashboard Grid - Show when authenticated */}
+          {isAuthenticated && (
+            <div className="space-y-6">
+              {/* Top Row - Portfolio Summary */}
+              <PortfolioSummaryCard
+                totalValue={portfolio?.totalValue}
+                change24h={portfolio?.change24h}
+                change7d={portfolio?.change7d}
+                tokenCount={portfolio?.tokenCount}
+                isLoading={isLoading}
+              />
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <PieChartIcon className="size-5" />
-                  Asset Allocation
-                </CardTitle>
-                <CardDescription>
-                  See how your assets are distributed
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isAuthenticated ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Connect your wallet to see your allocation
-                  </p>
-                )}
-              </CardContent>
-            </Card>
+              {/* Middle Row - Charts and Risk */}
+              <div className="grid gap-6 lg:grid-cols-2">
+                <AssetAllocationChart
+                  data={portfolio?.tokens}
+                  isLoading={isLoading}
+                />
+                <RiskMetricsCard
+                  riskScore={portfolio?.riskScore}
+                  diversificationScore={portfolio?.diversificationScore}
+                  volatility={portfolio?.volatility}
+                  isLoading={isLoading}
+                />
+              </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BrainCircuitIcon className="size-5" />
-                  AI Insights
-                </CardTitle>
-                <CardDescription>
-                  Get personalized recommendations
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isAuthenticated ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Connect your wallet to receive insights
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-
-            <Card className="md:col-span-2 lg:col-span-3">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <TrendingUpIcon className="size-5" />
-                  Performance History
-                </CardTitle>
-                <CardDescription>
-                  Track your portfolio performance over time
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isAuthenticated ? (
-                  <div className="space-y-2">
-                    <Skeleton className="h-64 w-full" />
-                  </div>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Connect your wallet to see performance charts
-                  </p>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+              {/* Bottom Row - Positions and Insights */}
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="lg:col-span-2">
+                  <PositionsTable
+                    positions={portfolio?.positions}
+                    isLoading={isLoading}
+                  />
+                </div>
+                <div className="lg:col-span-2">
+                  <AIInsightsCard
+                    address={address}
+                    insights={insights}
+                    isLoading={isLoadingInsights}
+                    onGenerate={generateInsights}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
   );
 }
-
