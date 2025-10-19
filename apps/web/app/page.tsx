@@ -1,102 +1,253 @@
-import Image from "next/image";
+/**
+ * Landing Page - Main entry point
+ */
 
-export default function Home() {
+import { Header } from "@/components/layout/header";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  LayoutDashboardIcon,
+  BrainCircuitIcon,
+  ShieldCheckIcon,
+  TrendingUpIcon,
+  ZapIcon,
+  WalletIcon,
+} from "lucide-react";
+import Link from "next/link";
+
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="container flex flex-col items-center justify-center gap-8 py-16 md:py-24 lg:py-32">
+          <div className="mx-auto flex max-w-[980px] flex-col items-center gap-4 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm">
+              <ZapIcon className="size-4 text-primary" />
+              <span className="text-muted-foreground">
+                Powered by AI & Blockchain
+              </span>
+            </div>
+            
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              Track Your{" "}
+              <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Avalanche DeFi
+              </span>
+              {" "}Portfolio
+            </h1>
+            
+            <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
+              Get real-time insights, AI-powered recommendations, and comprehensive
+              analytics for your Avalanche DeFi positions. All in one dashboard.
+            </p>
+            
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button size="lg" className="gap-2" asChild>
+                <Link href="/dashboard">
+                  <LayoutDashboardIcon className="size-5" />
+                  Go to Dashboard
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild>
+                <a
+                  href="https://github.com/yourusername/avax-ledger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on GitHub
+                </a>
+              </Button>
+            </div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          {/* Feature Cards */}
+          <div className="mx-auto mt-16 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <WalletIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>Multi-Wallet Support</CardTitle>
+                <CardDescription>
+                  Connect with MetaMask, WalletConnect, or Coinbase Wallet
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <TrendingUpIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>Real-Time Tracking</CardTitle>
+                <CardDescription>
+                  Monitor your portfolio value, positions, and performance metrics
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <BrainCircuitIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>AI Insights</CardTitle>
+                <CardDescription>
+                  Get intelligent recommendations for rebalancing and risk management
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <ShieldCheckIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>Secure Authentication</CardTitle>
+                <CardDescription>
+                  Sign-In with Ethereum (SIWE) for secure, wallet-based authentication
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <LayoutDashboardIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>Beautiful Dashboard</CardTitle>
+                <CardDescription>
+                  Intuitive interface with charts, tables, and actionable insights
+                </CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+                  <ZapIcon className="size-6 text-primary" />
+                </div>
+                <CardTitle>Lightning Fast</CardTitle>
+                <CardDescription>
+                  Built with Next.js 15 and optimized for performance
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="border-t bg-muted/50 py-16 md:py-24">
+          <div className="container">
+            <div className="mx-auto max-w-[800px] text-center">
+              <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                How It Works
+              </h2>
+              <p className="mb-12 text-lg text-muted-foreground">
+                Get started in three simple steps
+              </p>
+
+              <div className="grid gap-8 md:grid-cols-3">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
+                    1
+                  </div>
+                  <h3 className="font-semibold">Connect Wallet</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Sign in securely with your Avalanche wallet
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
+                    2
+                  </div>
+                  <h3 className="font-semibold">View Portfolio</h3>
+                  <p className="text-sm text-muted-foreground">
+                    See all your DeFi positions aggregated in one place
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center gap-4">
+                  <div className="flex size-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-xl font-bold">
+                    3
+                  </div>
+                  <h3 className="font-semibold">Get Insights</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Receive AI-powered recommendations to optimize your portfolio
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 md:py-24">
+          <div className="container">
+            <Card className="mx-auto max-w-[800px] border-primary/20 bg-gradient-to-br from-primary/5 to-purple-500/5">
+              <CardContent className="flex flex-col items-center gap-6 p-8 text-center md:p-12">
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                  Ready to optimize your DeFi portfolio?
+                </h2>
+                <p className="max-w-[600px] text-lg text-muted-foreground">
+                  Connect your wallet and start tracking your Avalanche DeFi positions
+                  with AI-powered insights today.
+                </p>
+                <Button size="lg" className="gap-2" asChild>
+                  <Link href="/dashboard">
+                    <LayoutDashboardIcon className="size-5" />
+                    Launch Dashboard
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="border-t py-6 md:py-8">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-sm text-muted-foreground">
+            Built with ❤️ for the Avalanche ecosystem
+          </p>
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <a
+              href="https://github.com/yourusername/avax-ledger"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://twitter.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              Twitter
+            </a>
+            <a
+              href="https://docs.avax-ledger.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors"
+            >
+              Docs
+            </a>
+          </div>
+        </div>
       </footer>
     </div>
   );
