@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@avax-ledger/types": ["../../packages/types/src"],
+      "@avax-ledger/utils": ["../../packages/utils/src"],
+      "@avax-ledger/config": ["../../packages/config/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

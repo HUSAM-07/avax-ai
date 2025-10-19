@@ -28,8 +28,8 @@ export default function HomePage() {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container flex flex-col items-center justify-center gap-8 py-16 md:py-24 lg:py-32">
-          <div className="mx-auto flex max-w-[980px] flex-col items-center gap-4 text-center">
+        <section className="container flex flex-col items-center justify-center gap-8 px-4 py-12 sm:py-16 md:py-24 lg:py-32">
+          <div className="mx-auto flex max-w-[980px] flex-col items-center gap-6 text-center">
             <div className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm">
               <ZapIcon className="size-4 text-primary" />
               <span className="text-muted-foreground">
@@ -37,20 +37,20 @@ export default function HomePage() {
               </span>
             </div>
             
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              Track Your{" "}
+            <h1 className="text-4xl font-bold tracking-tight leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              Track Your Avalanche{" "}
               <span className="bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Avalanche DeFi
+                DeFi
               </span>
               {" "}Portfolio
             </h1>
             
-            <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
+            <p className="max-w-[700px] px-4 text-base text-muted-foreground sm:text-lg md:text-xl">
               Get real-time insights, AI-powered recommendations, and comprehensive
               analytics for your Avalanche DeFi positions. All in one dashboard.
             </p>
             
-            <div className="flex flex-col gap-4 sm:flex-row">
+            <div className="flex w-full max-w-md flex-col gap-3 px-4 sm:flex-row sm:max-w-none">
               <Button size="lg" className="gap-2" asChild>
                 <Link href="/dashboard">
                   <LayoutDashboardIcon className="size-5" />
@@ -70,75 +70,75 @@ export default function HomePage() {
           </div>
 
           {/* Feature Cards */}
-          <div className="mx-auto mt-16 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+          <div className="mx-auto mt-16 w-full grid max-w-6xl gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <WalletIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>Multi-Wallet Support</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg">Multi-Wallet Support</CardTitle>
+                <CardDescription className="text-sm">
                   Connect with MetaMask, WalletConnect, or Coinbase Wallet
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <TrendingUpIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>Real-Time Tracking</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg">Real-Time Tracking</CardTitle>
+                <CardDescription className="text-sm">
                   Monitor your portfolio value, positions, and performance metrics
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <BrainCircuitIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>AI Insights</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg">AI Insights</CardTitle>
+                <CardDescription className="text-sm">
                   Get intelligent recommendations for rebalancing and risk management
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <ShieldCheckIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>Secure Authentication</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg">Secure Authentication</CardTitle>
+                <CardDescription className="text-sm">
                   Sign-In with Ethereum (SIWE) for secure, wallet-based authentication
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <LayoutDashboardIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>Beautiful Dashboard</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg">Beautiful Dashboard</CardTitle>
+                <CardDescription className="text-sm">
                   Intuitive interface with charts, tables, and actionable insights
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <div className="mb-2 flex size-12 items-center justify-center rounded-lg bg-primary/10">
+            <Card className="transition-all hover:shadow-lg hover:border-primary/20">
+              <CardHeader className="space-y-3">
+                <div className="flex size-12 items-center justify-center rounded-lg bg-primary/10">
                   <ZapIcon className="size-6 text-primary" />
                 </div>
-                <CardTitle>Lightning Fast</CardTitle>
-                <CardDescription>
-                  Built with Next.js 15 and optimized for performance
+                <CardTitle className="text-lg">Lightning Fast</CardTitle>
+                <CardDescription className="text-sm">
+                  Built with Next.js 14 and optimized for performance
                 </CardDescription>
               </CardHeader>
             </Card>
